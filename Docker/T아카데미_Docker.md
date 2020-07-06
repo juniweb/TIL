@@ -96,12 +96,123 @@ $ docker rmi [OPTIONS] IMAGE [IMAGE...]
 
 # 3 이미지 만들고 배포하기
 
+### 이미지 만들기
+
+```bash
+$ docker commit CONTAINER_ID IMAGE_NAME
+```
+
 ```bash
 $ docker run -it --name=git  ubuntu:16.04 /bin/bash
 
-root@1884b1cfcfe8:/# apt-get update
+$ winpty docker run -it ubuntu:16.04
 
-root@1884b1cfcfe8:/# apt-get install git
+# apt-get update
+
+# apt-get install -y git
+
+# git version
+```
+
+Windows gitbash 에서 다음과 같은 오류 발생.  
+[[Docker] the input device is not a TTY. If you are using mintty, try prefixing the command with 'winpty'](https://forgiveall.tistory.com/471) 참고하여 해결
+```bash
+$ docker run -it --name=git  ubuntu:16.04 /bin/bash
+
+the input device is not a TTY.  If you are using mintty, try prefixing the command with 'winpty'
+```
+
+```bash
+$ docker ps
+
+$ docker diff <CONTAINER_ID>
+
+$ docker commit <CONTAINER_ID> ubuntu:git
+
+$ docker run -it ubuntu:git bash
+
+# git
+```
+
+
+### Dockerfile
+
+```bash
+FROM ubuntu:16.04
+
+RUN apt-get update
+RUN apt-get install -y git
+```
+
+```bash
+$ docker build -t ununtu:git02 .
+```
+> `.` 은 현재 디렉토리를 의미함
+
+
+**FROM**  
+베이스 이미지 지정
+```bash
+FROM <이미지 이름>
+
+ex)
+FROM ubuntu:16.04
+```
+
+**ADD**  
+파일추가
+```bash
+ADD <추가할 파일><파일이 추가될 경로>
+
+ex)
+ADD data.txt /tmp/data.txt
+```
+> 추가할 파일은 현재 디렉토리 파일만 가능
+
+**RUN**  
+명령어 실행
+```bash
+RUN <명령어>
+
+ex)
+RUN apt-get install -y git
+```
+
+**WORKDIR**  
+작업 디렉토리 변경
+```bash
+WORKDIR <디렉토리>
+
+ex)
+WORKDIR /tmp
+```
+
+**ENV**  
+환경변수 기본값 지정
+```bash
+ENV <환경변수> <값>
+
+ex)
+ENV AWESOME_VAR FOOBAR
+```
+
+**EXPOSE**  
+컨테이너로 실행 시 노출시킬 포트
+```bash
+EXPOSE <포트>
+
+ex)
+EXPOSE 3000
+```
+> `-p` 옵션은 같이 사용해야 함
+
+**CMD**  
+이미지의 기본 실행 명령어 지정
+```bash
+CMD <명령어>
+
+ex)
+CMD /run.sh
 ```
 
 
