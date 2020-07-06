@@ -216,6 +216,23 @@ CMD /run.sh
 ```
 
 
+# 4 도커 이미지 자동 배포하기
+
+### Jenkins
+
+**Jenkins 실행**
+```bash
+# windows
+docker run -u root --rm -p 8080:8080 --name jenkins \ -v $(데이터디렉토리):/var/jenkins_home \ subicura/jenkins:2
+
+ex)
+docker run -u root --rm -p 8080:8080 --name jenkins \ -v //c/jenkins:/var/jenkins_home \ subicura/jenkins:2
+```
+
+> 일반적으로 Docker 명령어보다는 **Docker Compose** 를 사용
+
+
+
 [참고]
   - [Windows 10 Docker Desktop 설치 방법](https://luckygg.tistory.com/165)
   - [Docker 기본 사용법](http://pyrasis.com/Docker/Docker-HOWTO)
