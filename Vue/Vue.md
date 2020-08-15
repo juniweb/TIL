@@ -1,3 +1,5 @@
+# Vue.js 중급 강좌 - 웹앱 제작으로 배워보는 Vue.js, ES6, Vuex
+
 ## Flux Pattern
   - [Flux 패턴](https://pcconsoleoraksil.tistory.com/305)
   - [Flux](https://haruair.github.io/flux/docs/overview.html)
@@ -44,10 +46,6 @@
  - Actions
    - Mutations 을 실행
    - 비동기 처리를 하는 경우, 사용
-
-
-
-
 
 ## 참조
   - [Vue.js 예전 공부 메모](https://velog.io/@kameals/2019-11-13-1111-%EC%9E%91%EC%84%B1%EB%90%A8)
