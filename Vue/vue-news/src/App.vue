@@ -22,6 +22,16 @@ body {
   padding: 0;
   margin: 0;
 }
+a {
+  color: #34495e;
+  text-decoration: none;
+}
+a:hover {
+  color: #42b773
+}
+a.router-link-exact-active{
+  text-decoration: underline;
+}
 .page-enter-active, .page-leave-active {
   transition: opacity .5s;
 }
