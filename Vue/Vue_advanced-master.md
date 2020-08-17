@@ -197,6 +197,80 @@ export default {
   - $route.redirectedFrom
 
 
+## 리팩토링 2 - 사용자 프로필 컴포넌트 공통화
+
+### 사용자 컴포넌트 데이터 흐름처리 1
+
+`UserProfile.vue` 에서 `computed` 로 사용자정보 접근
+
+```js
+// UserProfile.vue
+<template>
+  <div>
+      <div class="user-container">
+        <div>
+          <i class="fas fa-user"></i>
+        </div>
+        <div class="user-description">
+          <div>{{ userInfo.id }}</div>
+          <div class="time">
+            {{ userInfo.created }}
+          </div>
+        </div>
+      </div>
+  </div>
+</template>
+
+<script>
+export default {
+    computed: {
+        userInfo() {
+            return this.$store.state.user;
+        }
+    },
+}
+</script>
+```
+
+### 사용자 컴포넌트 데이터 흐름처리 2
+
+`UserView.vue` 에서 `props` 로 사용자정보 전달 
+
+```js
+// UserView.vue
+<template>
+  <div>
+      <user-profile :userInfo="userInfo"></user-profile>
+  </div>
+</template>
+```
+
+```js
+// UserProfile.vue
+<template>
+  <div>
+      <div class="user-container">
+        <div>
+          <i class="fas fa-user"></i>
+        </div>
+        <div class="user-description">
+          <div>{{ userInfo.id }}</div>
+          <div class="time">
+            {{ userInfo.created }}
+          </div>
+        </div>
+      </div>
+  </div>
+</template>
+
+<script>
+export default {
+    props: {
+        userInfo: Object
+    }
+}
+</script>
+```
 
 
 ## 참조
