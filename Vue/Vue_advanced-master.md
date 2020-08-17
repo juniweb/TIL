@@ -272,6 +272,86 @@ export default {
 </script>
 ```
 
+## 리팩토링 3 - Mixin과 하이 오더 컴포넌트
 
-## 참조
-  - [Understanding JavaScript’s this keyword](https://javascriptweblog.wordpress.com/2010/08/30/understanding-javascripts-this/)
+### 하이 오더 컴포넌트
+
+하이 오더 컴포넌트는 **컴포넌트의 로직(코드)을 재사용하기 위한 고급 기술**입니다
+
+  - [리액트 하이 오더 컴포넌트 공식 문서](https://reactjs.org/docs/higher-order-components.html)
+  - [컴포넌트의 코드마저 재사용하는 하이 오더 컴포넌트](https://joshua1988.github.io/vue-camp/design/pattern5.html)
+
+
+### Mixins
+
+믹스인(Mixins)은 여러 컴포넌트 간에 공통으로 사용하고 있는 로직, 기능들을 재사용하는 방법
+
+  - [믹스인 - Vue.js](https://kr.vuejs.org/v2/guide/mixins.html)
+  - [믹스인 - 캡틴판교](https://joshua1988.github.io/vue-camp/reuse/mixins.html)
+
+ListMixin.js
+```js
+import bus from "../utils/bus";
+
+export default {
+  // 재사용할 컴포넌트 옵션
+  created() {
+    bus.$emit('start:spinner');
+
+    setTimeout(() => {
+    this.$store.dispatch('FETCH_LIST', this.$route.name)
+      .then(() => {
+        console.log('fetched');
+        bus.$emit('end:spinner');
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    }, 1000);  
+  }
+}
+```
+
+Mixin 사용 전
+```js
+<script>
+import ListItem from "../components/ListItem.vue";
+import bus from "../utils/bus";
+
+export default {
+  components: {
+    ListItem
+  },
+  created() {
+    bus.$emit('start:spinner');
+
+    setTimeout(() => {
+    this.$store.dispatch('FETCH_NEWS')
+      .then(() => {
+        console.log('fetched');
+        bus.$emit('end:spinner');
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    }, 1000);     
+  }
+}
+</script>
+```
+
+Mixin 사용 후
+```js
+<script>
+import ListItem from "../components/ListItem.vue";
+import ListMixin from "../mixins/ListMixin";
+
+export default {
+  components: {
+    ListItem
+  },
+  mixins: [ListMixin]
+}
+</script>
+```
+
