@@ -31,19 +31,6 @@ export default {
     computed: {
         listItems() {
           return this.$store.state.list;
-          
-            // let returnList = [];
-            // const name = this.$route.name;
-
-            // if (name == 'news') {
-            //     returnList = this.$store.state.newsList;
-            // }else if (name == 'ask') {
-            //     returnList = this.$store.state.askList;
-            // }else if (name == 'jobs') {
-            //     returnList = this.$store.state.jobsList;
-            // }
-
-            // return returnList;
         }
     }
 }
