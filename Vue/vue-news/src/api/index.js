@@ -14,8 +14,17 @@ function fetchUserInfo(userName) {
     return axios.get(`${config.baseUrl}/user/${userName}.json`);
 }
 
-function fetchItemInfo(itemId) {
-    return axios.get(`${config.baseUrl}/item/${itemId}.json`);
+// function fetchItemInfo(itemId) {
+//     return axios.get(`${config.baseUrl}/item/${itemId}.json`);
+// }
+
+async function fetchItemInfo(itemId) {
+    try {
+        const response = await axios.get(`${config.baseUrl}/item/${itemId}.json`);
+        return response;
+    } catch (error) {
+        console.log(error);
+    }
 }
 
 export {

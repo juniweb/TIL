@@ -355,6 +355,7 @@ export default {
 </script>
 ```
 
+
 ## 리팩토링 4 - 데이터 호출과 UX
 
 ### 데이터 호출 시점
@@ -363,4 +364,13 @@ export default {
     - 특정 URL로 접근하기 전의 동작을 정의하는 속성(함수)
 2. 컴포넌트 라이트 사이클 훅  
     - created : **컴포넌트가 생성**되자마자 호출되는 로직    
+
+
+## 리팩토링 5 - async & await를 이용한 비동기 처리
+> - async function 선언은 AsyncFunction객체를 반환하는 하나의 비동기 함수를 정의
+> - 암시적으로 Promise를 사용하여 결과를 반환
+> - await 키워드는 async 함수에서만 유효
+
+  - [async function](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Statements/async_function)
+  - [프라미스와 async, await](https://ko.javascript.info/async)
 
