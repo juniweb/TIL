@@ -24,11 +24,6 @@ export default {
             console.log(error);
         }
     },
-    // FETCH_USER({ commit }, userName) {
-    //     fetchUserInfo(userName)
-    //         .then(({ data }) => commit('SET_USER', data))
-    //         .catch(error => console.log(error))
-    // },
     async FETCH_USER({ commit }, userName) {
         try {
             const response = await fetchUserInfo(userName);
@@ -38,11 +33,6 @@ export default {
             console.log(error);
         }
     },    
-    // FETCH_ITEM({ commit }, itemId) {
-    //     fetchItemInfo(itemId)
-    //         .then(({ data }) => commit('SET_ITEM', data))
-    //         .catch(error => console.log(error))
-    // }
     async FETCH_ITEM({ commit }, itemId) {
         try {
             const response = await fetchItemInfo(itemId);

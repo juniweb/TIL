@@ -366,7 +366,7 @@ export default {
     - created : **컴포넌트가 생성**되자마자 호출되는 로직    
 
 
-## 리팩토링 5 - async & await를 이용한 비동기 처리
+# 리팩토링 5 - async & await를 이용한 비동기 처리
 > - async function 선언은 AsyncFunction객체를 반환하는 하나의 비동기 함수를 정의
 > - 암시적으로 Promise를 사용하여 결과를 반환
 > - await 키워드는 async 함수에서만 유효
@@ -374,3 +374,32 @@ export default {
   - [async function](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Statements/async_function)
   - [프라미스와 async, await](https://ko.javascript.info/async)
 
+
+## promise, async 샘플 소스
+
+promise sample
+```js
+    // promise
+    FETCH_LIST({ commit }, pageName) {
+        return fetchList(pageName)
+            .then(response => {
+                commit('SET_LIST', response.data);
+                return response;
+            })
+            .catch(error => console.log(error))
+    },
+```
+
+async sample
+```js
+    // async
+    async FETCH_LIST({ commit }, pageName) {
+        try {
+            const response = await fetchList(pageName);
+            commit('SET_LIST', response.data);
+            return response;
+        } catch (error) {
+            console.log(error);
+        }
+    },
+```
