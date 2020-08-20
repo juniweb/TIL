@@ -403,3 +403,65 @@ async sample
         }
     },
 ```
+
+## 외부 라이브러리 모듈화 방법(차트)
+
+### 외부 라이브러리 모듈화
+  - 이유 : Vue.js 관련 라이브러리가 없을 때 일반 라이브러리를 결합할 수 있어야 함
+  - 종류 : chart, datepicker, spinner 등
+
+
+### 차트 외부 라이브러리 사용법
+  1. 차트 라이브러리 npm 으로 설치  
+  2. 설치된 라이브러리를 import 로 App.vue에서 로딩  
+  3. mounted() 라이프 사이클 훅에서 차트를 그림
+  4. 차트를 컴포넌트화
+  5. 컴포넌트의 플러그인화
+  6. 컴포넌트 통신을 이용한 차트 컴포넌트 기능 결합
+
+### 컴포넌트 플러그인화
+
+1.플러그인 작성 - install 메소드에 구현
+```js
+import Chart from 'chart.js';
+
+export default {
+    install(Vue) {
+        Vue.prototype.$_Chart = Chart;
+    }
+}
+```
+
+> 플러그인, mixin 등에서 커스텀 사용자 private 프로터피에는 항상 접두사 `$_`를 사용하라
+
+2. CommonJS 같은 모듈에서 Vue.use() 명식적 호출
+```js
+Vue.use(ChartPlugin);
+```
+
+3. 컴포넌트에서 공통 라이브러리 제외, prototype 의 변수(this.$_Chart) 사용
+
+수정 전
+```js
+<script>
+import Chart from "chart.js";
+
+export default {
+    mounted() {
+      var lineChart = new Chart(ctx, {
+    }
+```
+
+수정 후
+```js
+<script>
+// import Chart from "chart.js";
+
+export default {
+    mounted() {
+      var lineChart = new this.$_Chart(ctx, {
+    }
+```
+
+ - [플러그인-Vue](https://kr.vuejs.org/v2/guide/plugins.html)
+
