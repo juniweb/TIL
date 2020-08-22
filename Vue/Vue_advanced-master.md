@@ -465,3 +465,139 @@ export default {
 
  - [플러그인-Vue](https://kr.vuejs.org/v2/guide/plugins.html)
 
+
+## 컴포넌트 디자인 패턴
+
+  1. Common - 기본적인 컴포넌트 등록과 컴포넌트 통신
+  2. Slot - 마크업 확장이 가능한 컴포넌트
+  3. Controlled - 결합력이 높은 컴포넌트
+  4. Renderless - 데이터 처리 컴포넌트
+
+
+### 1. Common 
+
+<br>
+
+  - [Common Approach](https://joshua1988.github.io/vue-camp/design/pattern1.html)
+
+
+#### [ props 타입 지정 ]
+
+  - [Props-공식문서](https://kr.vuejs.org/v2/guide/components-props.html)
+
+props 목록
+```js
+props: ['title', 'likes', 'isPublished', 'commentIds', 'author']
+```
+
+props 타입을 지정하는 props 목록
+
+```js
+props: {
+  title: String,
+  likes: Number,
+  isPublished: Boolean,
+  commentIds: Array,
+  author: Object,
+  callback: Function,
+  contactsPromise: Promise // or any other constructor
+}
+```
+
+Prop 유효성 검사
+```js
+props: {
+    // 기본 타입 체크 (`Null`이나 `undefinded`는 모든 타입을 허용합니다.)
+    propA: Number,
+    // 여러 타입 허용
+    propB: [String, Number],
+    // 필수 문자열
+    propC: {
+      type: String,
+      required: true
+    },
+    // 기본값이 있는 숫자
+    propD: {
+      type: Number,
+      default: 100
+    },
+    // 기본값이 있는 오브젝트
+    propE: {
+      type: Object,
+      // 오브젝트나 배열은 꼭 기본값을 반환하는
+      // 팩토리 함수의 형태로 사용되어야 합니다. 
+      default: function () {
+        return { message: 'hello' }
+      }
+    },
+    // 커스텀 유효성 검사 함수
+    propF: {
+      validator: function (value) {
+        // 값이 항상 아래 세 개의 문자열 중 하나여야 합니다. 
+        return ['success', 'warning', 'danger'].indexOf(value) !== -1
+      }
+    }
+  }
+```
+
+>  - Prop 유효성 검사가 실패하는 경우, Vue는 콘솔에 주의 메세지를 띄웁니다.
+>  - Prop의 유효성 검사는 컴포넌트 인스턴스가 생성되기 전에 일어난다는 것을 기억하세요. 즉, 인스턴스의 값(e.g. `data`, `computed`, 등등)은 `default`나 `validator` 함수 안에 사용될 수 없습니다.
+
+### 2. Slot
+
+<br>
+
+  - [Component with Slots](https://joshua1988.github.io/vue-camp/design/pattern3.html)
+  - [Slot-공식문서](https://kr.vuejs.org/v2/guide/components-slots.html)
+
+
+### 3. Controlled
+
+<br>
+
+  - [Building Controlled Components](https://joshua1988.github.io/vue-camp/design/pattern2.html)
+
+
+### 4. Renderless
+
+<br>
+
+  - [Scoped Slots-공식문서](https://kr.vuejs.org/v2/guide/components-slots.html#%EB%B2%94%EC%9C%84%EA%B0%80-%EC%9E%88%EB%8A%94-%EC%8A%AC%EB%A1%AF-Scoped-Slots)
+  - [[Vue.JS] Render Functions & JSX](https://beomy.tistory.com/63)
+
+> 대부분의 경우 Vue는 템플릿을 사용하여 HTML을 작성하는 것을 권장합니다. 하지만 때로는 JavaScript를 사용하여 HTML을 작성을 해야 할 때가 있습니다. 이럴 때 render 함수를 사용하면 됩니다.
+
+
+## 서비스 배포 환경 구성
+
+### build
+`dist` 폴더에 build 파일 생성됨
+
+```
+npm run build
+```
+
+### 환경변수
+
+  - [환경 변수 파일을 이용한 옵션 설정](https://joshua1988.github.io/vue-camp/deploy/env-setup.html)
+
+env 파일
+ `.env` 라는 환경 변수 파일 생성
+
+```
+# .env 파일
+VUE_APP_LOCAL_URI=http://localhost:8080/
+VUE_APP_TEST_SERVER=http://test.com:9090/
+
+clientId=client-test1234
+clientServer=server-test1234
+```
+
+> Vue CLI 3.x 버전에서 prefix `VUE_APP` 를 사용
+
+```js
+// .env 파일
+VUE_APP_LOCAL_URI=http://localhost:8080/
+
+console.log(process.env.VUE_APP_LOCAL_URI);
+```
