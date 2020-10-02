@@ -7,7 +7,7 @@ import requests
 import json
 
 # Sample REST API address
-users_address = "https://reqres.in/api/users?page=2"
+users_address = "https://reqres.in/api/users"
 
 address = users_address + "?page=2"
 
@@ -23,5 +23,6 @@ response.raise_for_status()
 
 results = response.json()
 
-print(json.dumps(results))
-
+print(json.dumps(results['data']))
+print(json.dumps(results['data'][0]))
+print(json.dumps(results['data'][0]['email']))
