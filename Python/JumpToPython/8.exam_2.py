@@ -6,6 +6,27 @@
 # >>>
 # ```
 print('# Q11')
+print('1. sys 모듈 사용')
+print('2. 환경변수(PYTHONPATH) 에 디렉토리(C:\doit) 추가')
+print('3. 현재 디렉토리 사용')
+
+# ```
+# 1. sys 모듈 사용
+# >>> import sys
+# >>> sys.path.append('C:\doit')
+# >>> import mymod
+# 
+# 2. 환경변수(PYTHONPATH) 에 디렉토리(C:\doit) 추가
+# C:\Users\home>set PYTHONPATH=c:\doit
+# C:\Users\home>python
+# >>> import mymod
+# 
+# 3. 현재 디렉토리 사용
+# C:\Users\home>cd c:\doit
+# C:\doit>python
+# >>> import mymod
+# ```
+
 print('')
 
 ## Q12 오류와 예외 처리
@@ -30,16 +51,50 @@ print('')
 # print(result)
 # ```
 print('# Q12')
+result = 0
+try:
+    [1,2,3][3] # IndexError
+    "a" + 1    # TypeError
+    4 / 0      # TypeError
+except TypeError:
+    result += 1
+except ZeroDivisionError:
+    result += 2
+except IndexError:
+    result += 3
+finally:
+    result += 4
+
+print(result) # 7 - IndexError 발생하여(+3), finally(+4)
 print('')
 
 ## Q13 DashInsert 함수
-# DashInsert 함수는 숫자로 구성된 문자열을 입력받은 뒤 문자열 안에서 홀수가 연속되면 두 수 사이에 - 를 추가하고, 짝수가 연속되면 * 를 추가하는 기능을 갖고 있다. DashInsert 함수를 완성하시오.
+# DashInsert 함수는 숫자로 구성된 문자열을 입력받은 뒤 문자열 안에서 홀수가 연속되면 두 수 사이에 - 를 추가하고, 
+# 짝수가 연속되면 * 를 추가하는 기능을 갖고 있다. DashInsert 함수를 완성하시오.
 
 # ```
 # 입력 예시: 4546793
 # 출력 예시: 454*67-9-3
 # ```
 print('# Q13')
+def DashInsert(numbers):
+    result_list = []
+    num_list = list(map(int,numbers))
+    prev_num = 0
+    for i, num in enumerate(num_list):
+        if i != 0:
+            if prev_num % 2 == 1 and  num % 2 == 1:
+                result_list.append('-')
+            elif prev_num % 2 == 0 and  num % 2 == 0:
+                result_list.append('*')
+
+        result_list.append(str(num))
+        prev_num = num
+
+    return ''.join(result_list)
+        
+
+print(DashInsert('4546793'))
 print('')
 
 ## Q14 문자열 압축하기
@@ -50,6 +105,24 @@ print('')
 # 출력 예시: a3b2c6a1
 # ```
 print('# Q14')
+def CompressString(data):
+    result = ''
+    prev_alpha = ''
+    cnt = 1
+    for alpha in data:
+        if prev_alpha != alpha:
+            if cnt > 1 : result += str(cnt)
+            result += alpha
+            cnt = 1
+        else:
+            cnt += 1
+
+        prev_alpha = alpha
+
+    return result
+        
+
+print(CompressString('aaabbcccccca'))
 print('')
 
 ## Q15 Duplicate Numbers
@@ -60,6 +133,19 @@ print('')
 # 출력 예시: true false false true false
 # ```
 print('# Q15')
+def IsDuplicateNumbers(data):
+    result = True
+    data_list = sorted(data)
+    print(data_list)
+
+    for i, num in enumerate(data_list):
+        if i != int(num):
+            result = False
+            break
+
+    return result
+
+print(IsDuplicateNumbers('012322456789'))
 print('')
 
 ## Q16 모스 부호 해독
@@ -73,21 +159,73 @@ print('')
 
 # 모스부호 규칙 표
 
-# 문자	부호	문자	부호
-# A	    .-	    N	    -.
-# B	    -...	O	    ---
-# C	    -.-.	P	    .--.
-# D	    -..	    Q	    --.-
-# E	    .	    R	    .-.
-# F	    ..-.	S	    ...
-# G	    --.	    T	    -
-# H	    ....	U	    ..-
-# I	    ..	    V	    ...-
-# J	    .---	W	    .--
-# K	    -.-	    X	    -..-
-# L	    .-..	Y	    -.--
-# M	    --	    Z	    --..
+# 문자 부호 문자 부호
+# A  .-      N  -.
+# B  -...    O  ---
+# C  -.-.    P  .--.
+# D  -..     Q  --.-
+# E  .       R  .-.
+# F  ..-.    S  ...
+# G  --.     T  -
+# H  ....    U  ..-
+# I  ..      V  ...-
+# J  .---    W  .--
+# K  -.-     X  -..-
+# L  .-..    Y  -.--
+# M  --      Z  --..
 print('# Q16')
+def MorseCode(data):
+    morse_dic = {
+        '.-'    : 'A',
+        '-...'  : 'B',
+        '-.-.'  : 'C',
+        '-..'   : 'D',
+        '.'     : 'E',
+        '..-.'  : 'F',
+        '--.'   : 'G',
+        '....'  : 'H',
+        '..'    : 'I',
+        '.---'  : 'J',
+        '-.-'   : 'K',
+        '.-..'  : 'L',
+        '--'    : 'M',
+        '-.'    : 'N',
+        '---'   : 'O',
+        '.--.'  : 'P',
+        '--.-'  : 'Q',
+        '.-.'   : 'R',
+        '...'   : 'S',
+        '-'     : 'T',
+        '..-'   : 'U',
+        '...-'  : 'V',
+        '.--'   : 'W',
+        '-..-'  : 'X',
+        '-.--'  : 'Y',
+        '--..'  : 'Z',
+    }
+   
+    word_list = data.split('  ')
+    print(word_list)
+
+    word_result = []
+
+    for word in word_list:
+        alpha_list = word.split(' ')
+        print('')
+        print(alpha_list)
+
+        alpha_result = []
+
+        for alpha in alpha_list:
+            alpha = morse_dic[alpha]
+            alpha_result.append(alpha)
+
+        word_result.append(''.join(alpha_result))
+        print(alpha_result)
+
+    return ' '.join(word_result)
+
+print(MorseCode('.... .  ... .-.. . . .--. ...  . .- .-. .-.. -.--'))
 print('')
 
 ## Q17 기초 메타 문자
@@ -98,6 +236,15 @@ print('')
 # 3.aaab
 # 4.a.cccb
 print('# Q17')
+import re
+
+p17 = re.compile("a[.]{3,}b")
+
+print (p17.match("acccb"))    # None
+print (p17.match("a....b"))   # 매치 객체 출력
+print (p17.match("aaab"))     # None
+print (p17.match("a.cccb"))   # None
+
 print('')
 
 ## Q18 문자열 검색
@@ -110,6 +257,9 @@ print('')
 # >>> m.start() + m.end()
 # ```
 print('# Q18')
+p18 = re.compile("[a-z]+")
+m = p18.search("5 python")
+print(m.start() + m.end()) # 10
 print('')
 
 ## Q19 그루핑
@@ -123,6 +273,17 @@ print('')
 # """
 # ```
 print('# Q19')
+
+s = """
+park 010-9999-9988
+kim 010-9909-7789
+lee 010-8789-7768
+"""
+
+pat19 = re.compile("(\d{3}[-]\d{4})[-]\d{4}")
+result = pat19.sub("\g<1>-####", s)
+
+print(result)
 print('')
 
 ## Q20 전방 탐색
@@ -132,4 +293,9 @@ print('')
 # .*[@].*[.].*$
 # ```
 print('# Q20')
+pat20 = re.compile(".*[@].*[.](?=com$|net$).*$")
+
+print(pat20.match("pahkey@gmail.com"))
+print(pat20.match("kim@daum.net"))
+print(pat20.match("lee@myhome.co.kr"))
 print('')
