@@ -11,7 +11,7 @@ const InputGroupComp = (props) => {
         placeholder={`${props.name === 'userId'? '아이디' : '비밀번호'}를 입력해 주세요`}
         name={props.name} 
         value={props.value} 
-        onChange={e => props.onChange(e.target.name, e.target.value)}>
+        onChange={e => props.onChange(e)}>
         </input>
     </div>
   );
