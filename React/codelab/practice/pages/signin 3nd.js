@@ -42,7 +42,7 @@ const SignInPage = () => {
         // })
 
         axios({
-            url: '/signin',
+            url: 'apiURL',
             method: 'POST',
             data: {
                 user_id: userInfo.userId,
@@ -51,19 +51,19 @@ const SignInPage = () => {
         })
         .then(res => {
             console.log(res.data);
-            localStorage.setItem('userInfo', JSON.stringify(res.data));
+            const result = res.data.result;
+            localStorage.setItem('userInfo', JSON.stringify(result));
             Router.push('/main');
         })
         .catch(err => {
-            console.log(err);
-            // console.log(err.response.status);
-            // const status = err.response.status;
-            // if(status == 401) {
-            //     return alert('비밀번호가 유효하지 않습니다.');
-            // }
-            // if(status == 404) {
-            //     return alert('등록된 유저가 아닙니다.');
-            // }
+            console.log(err.response.status);
+            const status = err.response.status;
+            if(status == 401) {
+                return alert('비밀번호가 유효하지 않습니다.');
+            }
+            if(status == 404) {
+                return alert('등록된 유저가 아닙니다.');
+            }
         })
     }
 
@@ -73,7 +73,7 @@ const SignInPage = () => {
         user_idx : 1
     }
 
-    // localStorage.setItem('userInfo', JSON.stringify(userObj));
+    localStorage.setItem('userInfo', JSON.stringify(userObj));
 
     useEffect(() => {
         console.log(userInfo);

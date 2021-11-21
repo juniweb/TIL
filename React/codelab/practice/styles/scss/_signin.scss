@@ -9,9 +9,9 @@
         justify-content: center;
         align-items: center;
         .signin-box {
-            background-color: $bg-white;
+            background-color: $white;
             width: 100%;
-            border: 1px solid $bg-black;
+            border: 1px solid $black;
             .form-head {
                 border-bottom: 1px solid #d9d9d9;
                 padding: 20px;
@@ -50,7 +50,7 @@
             .form-footer {
                 padding: 20px;
                 .btn-submit {
-                    @include btn-black(100%, 50px);
+                    @include btn-red(100%, 50px);
                     // width: 100%;
                     // height: 50px;
                     // background-color: $bg-black;

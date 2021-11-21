@@ -33,7 +33,12 @@ app.prepare().then(() => {
       },
     }),
   );
-  
+
+  server.post('/signin', (req, res) => {
+    console.log(req.body);
+    res.json({...req.body, 'isLogin':true});
+  });
+
   // server.get('/hashtag/:tag', (req, res) => {
   //   return app.render(req, res, '/hashtag', { tag: req.params.tag });
   // });
@@ -45,17 +50,17 @@ app.prepare().then(() => {
   // /goods_detail?id=1&name=곰인형&price=3000 -> 쿼리스트링
   // /goods_detail/1/곰인형/3000  -> URL
 
-  // server.get('/goods/:id', (req, res) => {
-  //   // return app.render(req, res, '/user', { id: req.params.id });
-  //   console.log('queryData : ', req.query.id);
-  //   console.log('paramData : ', req.params);
-  //   const actualPage = '/goods_detail';
-  //   const queryParams = {
-  //     goods_idx: req.params.id
-  //   }
+  server.get('/goods/:id', (req, res) => {
+    // return app.render(req, res, '/user', { id: req.params.id });
+    console.log('queryData : ', req.query.id);
+    console.log('paramData : ', req.params);
+    const actualPage = '/goods_detail';
+    const queryParams = {
+      goodsIdx: req.params.id
+    }
 
-  //   return qpp.render(req, res, actualPage, queryParams);
-  // });
+    return app.render(req, res, actualPage, queryParams);
+  });
   
   server.get('*', (req, res) => { // 모든 get 요청 처리
     return handle(req, res); // next의 get 요청 처리기

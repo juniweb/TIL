@@ -1,17 +1,36 @@
-$bg-white: #ffffff !default;
-$bg-black: #000000 !default;
+$white: #ffffff !default;
+$black: #000000 !default;
+$bg-gray: #f8f8f8 !default;
+$bd-gray: #d8d8d8 !default;
+$red: palevioletred !default;
+$full-w: 100vw !default;
+$full-h: 100vh !default;
 
 @mixin container {
     width: 100vw;
     height: 100vh;    
 }
 
-@mixin btn-black($w, $h) {
+@mixin card($width, $height) {
+    display: inline-block;
+    box-sizing: border-box;
+    width: $width;
+    height: $height;
+    background-color: palevioletred;
+    color: $white;
+    border: 1px solid $bd-gray;
+    border-radius: 5px;
+    margin-left: 20px;
+    margin-bottom: 20px;
+    padding: 20px;
+}
+
+@mixin btn-red($w, $h) {
     width: $w;
     height: $h;
-    background-color: $bg-black;
-    color: $bg-white;
-    border: 1px solid $bg-black;
+    background-color: $red;
+    color: $white;
+    border: 1px solid $black;
     font-size: 1.25rem;
     font-weight: 700;
     cursor: pointer;
